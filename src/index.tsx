@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { render } from "react-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import { getUrls, UrlObject } from "./getUrls";
 
 import "./styles.css";
@@ -17,48 +21,57 @@ const App = () => {
     });
   };
   return (
-    <div className="App">
-      <h1>Get Exported URL Figma Components</h1>
-      <div>
-        <label htmlFor="token">Your token</label>
-        <input
+    <Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <h1>Get Exported URL Figma Components</h1>
+        <TextField
           id="token"
-          type="text"
+          label="Your token"
           value={token}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setToken(event.target.value)
           }
+          fullWidth
+          margin="normal"
+          variant="outlined"
         />
-      </div>
-      <div>
-        <label htmlFor="key">Your file key</label>
-        <input
+        <TextField
           id="key"
-          type="text"
+          label="Your file key"
           value={fileKey}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setFileKey(event.target.value)
           }
+          fullWidth
+          margin="normal"
+          variant="outlined"
         />
-      </div>
-      <button onClick={() => onSubmit(token, fileKey)}>Get URLs</button>
-      <div>
-        <h2>URLs</h2>
-        {urlObject ? (
-          <ul>
-            {urlObject.urls.map(u => (
-              <li>
-                <p>{u.name}</p>
-                <p>{u.image}</p>
-                <figure>
-                  <img src={u.image} alt="" />
-                </figure>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-    </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit(token, fileKey)}
+        >
+          Get URLs
+        </Button>
+        <section>
+          <h2>URLs</h2>
+          {urlObject ? (
+            <ul>
+              {urlObject.urls.map(u => (
+                <li key={u.name}>
+                  <p>name: {u.name}</p>
+                  <p>url: {u.image}</p>
+                  <figure>
+                    <img src={u.image} alt="" />
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      </Container>
+    </Fragment>
   );
 };
 
