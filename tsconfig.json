@@ -1,0 +1,12 @@
+{
+    "include": [
+        "./src/*"
+    ],
+    "compilerOptions": {
+        "lib": [
+            "dom",
+            "es2017"
+        ],
+        "jsx": "react"
+    }
+}
