@@ -21,13 +21,16 @@ export const getUrls = async (
     client
       .file(fileKey)
       .then(({ data }) => {
-        let components = {};
+        let components: {
+          [index: string]: { name: string; image: string };
+        } = {};
         const check = (c: Node) => {
           if (c.type === "COMPONENT") {
             const { name, id } = c;
 
             components[id] = {
-              name
+              name,
+              image: ""
             };
           } else if (
             c.type === "INSTANCE" ||

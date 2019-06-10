@@ -1,14 +1,35 @@
 import React, { useState, Fragment } from "react";
 import { render } from "react-dom";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import { getUrls, UrlObject } from "./getUrls";
 
 import "./styles.css";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      width: "100%",
+      marginTop: theme.spacing(3),
+      overflowX: "auto"
+    },
+    table: {
+      minWidth: 650
+    }
+  })
+);
+
 const App = () => {
+  const classes = useStyles();
   const [token, setToken] = useState<string>("");
   const [fileKey, setFileKey] = useState<string | number>("");
   const [urlObject, setUrlObject] = useState<UrlObject | null>(null);
@@ -23,7 +44,7 @@ const App = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <Container maxWidth="sm">
+      <Container maxWidth="lg">
         <h1>Get Exported URL Figma Components</h1>
         <TextField
           id="token"
@@ -51,23 +72,43 @@ const App = () => {
           variant="contained"
           color="primary"
           onClick={() => onSubmit(token, fileKey)}
+          disabled={!fileKey || !token}
         >
           Get URLs
         </Button>
         <section>
           <h2>URLs</h2>
           {urlObject ? (
-            <ul>
-              {urlObject.urls.map(u => (
-                <li key={u.name}>
-                  <p>name: {u.name}</p>
-                  <p>url: {u.image}</p>
-                  <figure>
-                    <img src={u.image} alt="" />
-                  </figure>
-                </li>
-              ))}
-            </ul>
+            <Paper className={classes.paper}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>component name</TableCell>
+                    <TableCell>URL</TableCell>
+                    <TableCell>Image</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {urlObject.urls.map(u => (
+                    <TableRow key={u.name}>
+                      <TableCell component="th" scope="row">
+                        {u.name}
+                      </TableCell>
+                      <TableCell>
+                        <a target="_blank" rel="noopener" href={u.image}>
+                          {u.image}
+                        </a>
+                      </TableCell>
+                      <TableCell>
+                        <figure>
+                          <img src={u.image} alt="" />
+                        </figure>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Paper>
           ) : null}
         </section>
       </Container>
