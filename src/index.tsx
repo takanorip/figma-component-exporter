@@ -36,6 +36,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       minWidth: 650
+    },
+    figure: {
+      width: 240,
+      height: 180,
+      margin: 0
+    },
+    image: {
+      height: "100%",
+      width: "100%",
+      objectFit: "contain"
     }
   })
 );
@@ -137,8 +147,8 @@ const App = () => {
                         </a>
                       </TableCell>
                       <TableCell>
-                        <figure>
-                          <img src={u.image} alt="" />
+                        <figure className={classes.figure}>
+                          <img className={classes.image} src={u.image} alt="" />
                         </figure>
                       </TableCell>
                     </TableRow>
