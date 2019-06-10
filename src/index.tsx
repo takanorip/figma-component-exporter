@@ -101,9 +101,9 @@ const App = () => {
             <InputLabel htmlFor="format">Format</InputLabel>
             <Select
               value={format}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setFormat(event.target.value)
-              }
+              onChange={(
+                event: React.ChangeEvent<{ name?: string; value: unknown }>
+              ) => setFormat(event.target.value as FileImageParams["format"])}
               inputProps={{
                 name: "age",
                 id: "format"
