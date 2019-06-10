@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
   const [token, setToken] = useState<string>("");
-  const [fileKey, setFileKey] = useState<string | number>("");
+  const [fileKey, setFileKey] = useState<string>("");
   const [urlObject, setUrlObject] = useState<UrlObject | null>(null);
-  const onSubmit = (token, fileKey) => {
+  const onSubmit = (token: string, fileKey: string) => {
     getUrls(token, fileKey).then((data: UrlObject) => {
       setUrlObject({
         urls: Object.values(data.urls),
