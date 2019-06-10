@@ -1,4 +1,4 @@
-import { Client, Node } from "figma-js";
+import { Client, Node, FileImageParams } from "figma-js";
 
 interface Url {
   image: string;
@@ -12,7 +12,8 @@ export interface UrlObject {
 
 export const getUrls = async (
   token: string,
-  fileKey: string
+  fileKey: string,
+  format: FileImageParams["format"]
 ): Promise<UrlObject> => {
   return new Promise((resolve, reject) => {
     const client = Client({
@@ -58,7 +59,7 @@ export const getUrls = async (
         } else {
           return client
             .fileImages(fileKey, {
-              format: "jpg",
+              format,
               ids: Object.keys(components),
               scale: 1
             })
