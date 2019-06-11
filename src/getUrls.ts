@@ -22,6 +22,8 @@ export const getUrls = async (
     client
       .file(fileKey)
       .then(({ data }) => {
+        console.log(data);
+
         let components: {
           [index: string]: { name: string; image: string };
         } = {};
@@ -42,8 +44,6 @@ export const getUrls = async (
           ) {
             if (c.children) {
               c.children.forEach(check);
-            } else {
-              return;
             }
           }
         };

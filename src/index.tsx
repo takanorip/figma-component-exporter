@@ -137,7 +137,7 @@ const App = () => {
               {urlObject ? (
                 <TableBody>
                   {urlObject.urls.map(u => (
-                    <TableRow key={u.name}>
+                    <TableRow key={u.image}>
                       <TableCell component="th" scope="row">
                         {u.name}
                       </TableCell>
