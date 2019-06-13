@@ -22,8 +22,6 @@ export const getUrls = async (
     client
       .file(fileKey)
       .then(({ data }) => {
-        console.log(data);
-
         let components: {
           [index: string]: { name: string; image: string };
         } = {};
